@@ -1,0 +1,1 @@
+bool START_MISSION

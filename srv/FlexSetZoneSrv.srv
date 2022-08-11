@@ -1,0 +1,9 @@
+uint8 ZONE
+# ZONE = 0 ZONE_OPEATING            Toc do binh thuong
+# ZONE = 1 ZONE_HAZARD              Toc do toi da 0.6 m/s
+# ZONE = 2 ZONE_RESTRICTED          Toc do toi da 0.3 m/s
+# ZONE = 3 ZONE_CONFINED            Khong gioi han toc do 
+# ZONE = 4 ZONE_LOAD                Toc do toi da 0.3m/s
+
+---
+bool success

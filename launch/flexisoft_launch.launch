@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+
+ 
+  <node pkg="sick_flexisoft_pkg" type="sick_flexisoft_pkg_node" respawn="false" name="sick_flexisoft_pkg_node" output="screen"></node>
+
+</launch>
