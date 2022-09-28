@@ -67,7 +67,6 @@ add_message_files(
   fx3_saf_mode_switch.msg
   fx3_saf_safety_system.msg
   fx3_io_start_mission.msg
-  m5_out_enc_enable_id.msg
 )
 
 ## Generate services in the 'srv' folder

@@ -17,11 +17,13 @@
 #include <sick_flexisoft_pkg/fx3_saf_protective_field.h>
 #include <sick_flexisoft_pkg/fx3_saf_mode_switch.h>
 #include <sick_flexisoft_pkg/fx3_saf_safety_system.h>
-#include <sick_flexisoft_pkg/m5_out_enc_enable_id.h>
+#include <std_msgs/Float32.h>
+
 
 #include "detect_obstacle/fields_safety.h"
 
- clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
+ //clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
+  clientSock *Flexisoft = new clientSock("172.20.91.104", 1102);
 //clientSock *Flexisoft = new clientSock("192.168.1.100", 1101, true);
 ros::Publisher fx3_saf_protective_fault_pub;
 ros::Publisher fx3_saf_stop_states_pub;
@@ -46,7 +48,7 @@ sick_flexisoft_pkg::fx3_saf_status_states fx3_saf_status_states;
 sick_flexisoft_pkg::fx3_saf_protective_field fx3_saf_protective_field;
 sick_flexisoft_pkg::fx3_saf_mode_switch fx3_saf_mode_switch;
 sick_flexisoft_pkg::fx3_saf_safety_system fx3_saf_safety_system;
-sick_flexisoft_pkg::m5_out_enc_enable_id m5_out_enc_enable_id;
+std_msgs::Float32 m5_out_enc_enable_id;
 // sick_flexisoft_pkg::MuteCameraSafety MuteCameraSafety;
 
 detect_obstacle::fields_safety fields_safety;
@@ -194,32 +196,32 @@ void m5_out_enc_enable_id_function_pub()
     switch (speedTarget)
     {
     case 1:
-        m5_out_enc_enable_id.SPEED = 30;
+        m5_out_enc_enable_id.data = 30;
         break;
     case 2:
-        m5_out_enc_enable_id.SPEED = 70;
+        m5_out_enc_enable_id.data = 70;
         break;
     case 3:
-        m5_out_enc_enable_id.SPEED = 140;
+        m5_out_enc_enable_id.data = 140;
         break;
     case 4:
-        m5_out_enc_enable_id.SPEED = 280;
+        m5_out_enc_enable_id.data = 280;
         break;
     case 5:
-        m5_out_enc_enable_id.SPEED = 560;
+        m5_out_enc_enable_id.data = 560;
         break;
     case 6:
-        m5_out_enc_enable_id.SPEED = 880;
+        m5_out_enc_enable_id.data = 880;
         break;
     case 7:
-        m5_out_enc_enable_id.SPEED = 1200;
+        m5_out_enc_enable_id.data = 1200;
         break;
     case 8:
-        m5_out_enc_enable_id.SPEED = 1520;
+        m5_out_enc_enable_id.data = 1520;
         break;
 
     default:
-        m5_out_enc_enable_id.SPEED = 0;
+        m5_out_enc_enable_id.data = 0;
         break;
     }
 
@@ -312,8 +314,8 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, true);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         while (!time_out)
         {
             if (ros::Time::now().toSec() - secs >= 3)
@@ -339,8 +341,8 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, true);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         while (!time_out)
         {
             if (ros::Time::now().toSec() - secs >= 3)
@@ -366,8 +368,8 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, true);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         while (!time_out)
         {
             if (ros::Time::now().toSec() - secs >= 3)
@@ -389,39 +391,12 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
         // return false;
         break;
     case 3:
-        ROS_ERROR(" FlexSetZoneSrv IPC_SAF_ZONE_CONFINED");
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, true);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, false);
-        while (!time_out)
-        {
-            if (ros::Time::now().toSec() - secs >= 3)
-            {
-                time_out = true;
-            }
-
-            if (Flexisoft->flex_read_bit(FX3_SAF_ZONE_CONFINED) == true)
-            {
-                res.success = true;
-                ROS_INFO("sending back response: [%x]", Flexisoft->flex_read_bit(FX3_SAF_ZONE_CONFINED));
-                ROS_INFO(" FX3_SAF_ZONE_CONFINED");
-                return true;
-            }
-            //
-            ros::Duration(0.1).sleep();
-        }
-        res.success = false;
-        // return false;
-        break;
-    case 4:
         ROS_ERROR(" FlexSetZoneSrv IPC_SAF_ZONE_LOAD");
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
-        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, true);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         while (!time_out)
         {
             if (ros::Time::now().toSec() - secs >= 3)
@@ -433,7 +408,34 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
             {
                 res.success = true;
                 ROS_INFO("sending back response: [%x]", Flexisoft->flex_read_bit(FX3_SAF_ZONE_LOAD));
-                ROS_INFO(" FX3_SAF_ZONE_LOAD, done");
+                ROS_INFO(" IPC_SAF_ZONE_LOAD");
+                return true;
+            }
+            //
+            ros::Duration(0.1).sleep();
+        }
+        res.success = false;
+        // return false;
+        break;
+    case 4:
+        ROS_ERROR(" FlexSetZoneSrv IPC_SAF_ZONE_CONFINED");
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_OPEATING, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, true);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
+        while (!time_out)
+        {
+            if (ros::Time::now().toSec() - secs >= 3)
+            {
+                time_out = true;
+            }
+
+            if (Flexisoft->flex_read_bit(FX3_SAF_ZONE_CONFINED) == true)
+            {
+                res.success = true;
+                ROS_INFO("sending back response: [%x]", Flexisoft->flex_read_bit(FX3_SAF_ZONE_CONFINED));
+                ROS_INFO(" IPC_SAF_ZONE_CONFINED, done");
                 return true;
             }
             //
@@ -588,7 +590,7 @@ int main(int argc, char **argv)
     fx3_saf_protective_field_pub = nh.advertise<sick_flexisoft_pkg::fx3_saf_protective_field>("/fx3_saf_protective_field_pub", 10);
     fx3_saf_mode_switch_pub = nh.advertise<sick_flexisoft_pkg::fx3_saf_mode_switch>("/fx3_saf_mode_switch_pub", 10);
     fx3_saf_safety_system_pub = nh.advertise<sick_flexisoft_pkg::fx3_saf_safety_system>("/fx3_saf_safety_system_pub", 10);
-    m5_out_enc_enable_id_pub = nh.advertise<sick_flexisoft_pkg::m5_out_enc_enable_id>("/m5_out_enc_enable_id_pub", 10);
+    m5_out_enc_enable_id_pub = nh.advertise<std_msgs::Float32>("/m5_out_enc_enable_id_pub", 10);
     use_safety_camera_pub = nh.advertise<std_msgs::Bool>("/use_safety_camera", 10);
 
     ros::Subscriber depth_camera_fields_safety_sub = nh.subscribe("/depth_camera/fields_safety", 10, depth_camera_fields_safety_CallBack);
