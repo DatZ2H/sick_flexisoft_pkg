@@ -22,8 +22,8 @@
 
 #include "detect_obstacle/fields_safety.h"
 
- //clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
-  clientSock *Flexisoft = new clientSock("172.20.91.104", 1102);
+ clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
+ // clientSock *Flexisoft = new clientSock("172.20.91.104", 1102);
 //clientSock *Flexisoft = new clientSock("192.168.1.100", 1101, true);
 ros::Publisher fx3_saf_protective_fault_pub;
 ros::Publisher fx3_saf_stop_states_pub;
