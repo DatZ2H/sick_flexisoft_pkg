@@ -59,10 +59,10 @@
 #define M5_IN_STT_MOC_01	    1 , 8 , 2
 #define M13_IN_STT_GERP	    1 , 8 , 1
 #define M14_IN_STT_GENT	    1 , 8 , 0
-#define __STT_IN_XTIO_01	    1 , 8 , 15
-#define M1_IN_STT_IN_XTIO_02	    1 , 8 , 14
-#define M2_IN_STT_IN_STIO_03	    1 , 8 , 13
-#define M3_IN_STT_IN_XTIO_04	    1 , 8 , 12
+#define M1_IN_STT_IN_XTIO_01	    1 , 8 , 15
+#define M2_IN_STT_IN_XTIO_02	    1 , 8 , 14
+#define M3_IN_STT_IN_STIO_03	    1 , 8 , 13
+#define M4_IN_STT_IN_XTIO_04	    1 , 8 , 12
 #define M5_IN_STT_IN_MOC_01	    1 , 8 , 10
 #define M13_IN_STT_IN_GERP	    1 , 8 , 9
 #define M14_IN_STT_IN_GENT	    1 , 8 , 8
@@ -70,7 +70,6 @@
 #define M1_IN_STT_OUT_XTIO_02	    1 , 9 , 6
 #define M2_IN_STT_OUT_STIO_03	    1 , 9 , 5
 #define M3_IN_STT_OUT_XTIO_04	    1 , 9 , 4
-#define M5_IN_STT_OUT_MOC_01	    1 , 9 , 2
 #define M13_IN_STT_OUT_GERP	    1 , 9 , 1
 #define M14_IN_STT_OUT_GENT	    1 , 9 , 0
 #define GEPR_OUT_MS3_F_TRIG_SAFE	    1 , 10 , 7
@@ -89,7 +88,6 @@
 #define GEPR_OUT_MS3_F_WRITE_C	    1 , 10 , 10
 #define GEPR_OUT_MS3_F_WRITE_B	    1 , 10 , 9
 #define GEPR_OUT_MS3_F_WRITE_A	    1 , 10 , 8
-#define GEPR_IN_MS3_F_READY	    1 , 11 , 7
 #define GEPR_IN_MS3_F_ACTIVE	    1 , 11 , 6
 #define GEPR_IN_MS3_F_SLEEP	    1 , 11 , 5
 #define GEPR_IN_MS3_F_DUST_WARN	    1 , 11 , 4
@@ -169,7 +167,7 @@
 #define GEPR_IN_MS3_B_READ_C	    1 , 16 , 2
 #define GEPR_IN_MS3_B_READ_B	    1 , 16 , 1
 #define GEPR_IN_MS3_B_READ_A	    1 , 16 , 0
-#define FX3_SAF_STOP_STATES	    1 , 17 , 7
+#define FX3_SAF_STOP_PAUSE	    1 , 17 , 7
 #define FX3_SAF_STOP_OPERATIONAL	    1 , 17 , 6
 #define FX3_SAF_STOP_MANUAL	    1 , 17 , 5
 #define FX3_SAF_STOP_PROTECTIVE	    1 , 17 , 4
@@ -188,9 +186,11 @@
 #define FX3_SAF_EMERGENCY_SHARED_EMC	    1 , 18 , 4
 #define FX3_SAF_STATUS_PRE_RESUME	    1 , 18 , 15
 #define FX3_SAF_STATUS_RUNNING	    1 , 18 , 11
+#define FX3_SAF_STATUS_STATES	    1 , 18 , 8
 #define FX3_SAF_MUTE_RELEASE	    1 , 19 , 7
-#define FX3_SAF_ZONE_LOAD	    1 , 19 , 4
-#define FX3_SAF_ZONE_CONFINED	    1 , 19 , 3
+#define FX3_SAF_ZONE_FORBIDDEN 	    1 , 19 , 5
+#define FX3_SAF_ZONE_CONFINED	    1 , 19 , 4
+#define FX3_SAF_ZONE_LOAD	    1 , 19 , 3
 #define FX3_SAF_ZONE_RESTRICTED	    1 , 19 , 2
 #define FX3_SAF_ZONE_HAZARD	    1 , 19 , 1
 #define FX3_SAF_ZONE_OPEATING	    1 , 19 , 0
@@ -200,11 +200,6 @@
 #define FX3_SAF_MODE_LOCK	    1 , 19 , 10
 #define FX3_SAF_MODE_MAN	    1 , 19 , 9
 #define FX3_SAF_MODE_SWITCH	    1 , 19 , 8
-#define FX3_SAF_FIELD_PERSONAL	    1 , 20 , 7
-#define FX3_SAF_FIELD_DETECT	    1 , 20 , 6
-#define FX3_SAF_FIELD_WARN	    1 , 20 , 5
-#define FX3_SAF_FIELD_BRAKER	    1 , 20 , 4
-#define FX3_SAF_FIELD_POWER	    1 , 20 , 3
 #define FX3_SAF_FAULT_EFI	    1 , 20 , 15
 #define FX3_SAF_FAULT_MS3	    1 , 20 , 14
 #define FX3_SAF_FAULT_GENT	    1 , 20 , 13
@@ -235,10 +230,10 @@
 #define FX3_SAF_DRIVER_BRAKE_DELAY	    1 , 22 , 11
 #define FX3_SAF_DRIVER_OPERATION_DELAY	    1 , 22 , 10
 #define FX3_SAF_DRIVER_RUN_RELEASE	    1 , 22 , 9
-#define FX3_SAF_TAGET_ID_00	    1 , 23 , 15
-#define FX3_SAF_TAGET_ID_01	    1 , 23 , 14
-#define FX3_SAF_TAGET_ID_02	    1 , 23 , 13
-#define FX3_SAF_TAGET_ID_03	    1 , 23 , 12
+#define FX3_SAF_TARGET_ID_00	    1 , 23 , 15
+#define FX3_SAF_TARGET_ID_01	    1 , 23 , 14
+#define FX3_SAF_TARGET_ID_02	    1 , 23 , 13
+#define FX3_SAF_TARGET_ID_03	    1 , 23 , 12
 #define FX3_SAF_STATUS_PENDING	    1 , 24 , 7
 #define FX3_SAF_STATUS_ACTIVE	    1 , 24 , 6
 #define FX3_SAF_STATUS_SUCCEEDED	    1 , 24 , 5
@@ -247,6 +242,8 @@
 #define FX3_SAF_STATE_EXECUTE	    1 , 24 , 15
 #define FX3_SAF_STATE_CANCEL	    1 , 24 , 14
 #define FX3_SAF_STATE_DONE	    1 , 24 , 13
+
+
 
 
 #define IPC_IN_N_IO_PROXIMITY	    1 , 0 , 6
@@ -287,12 +284,12 @@
 #define IPC_SAF_MAPPING_RELEASE	    2 , 1 , 0
 #define IPC_SAF_PAYLOAD_RELEASE	    2 , 1 , 8
 
-#define IPC_SAF_ZONE_LOAD	    3 , 0 , 4
-#define IPC_SAF_ZONE_CONFINED	    3 , 0 , 3
+#define IPC_SAF_ZONE_FORBIDDEN 	    3 , 0 , 5
+#define IPC_SAF_ZONE_CONFINED	    3 , 0 , 4
+#define IPC_SAF_ZONE_LOAD	    3 , 0 , 3
 #define IPC_SAF_ZONE_RESTRICTED	    3 , 0 , 2
 #define IPC_SAF_ZONE_HAZARD	    3 , 0 , 1
 #define IPC_SAF_ZONE_OPEATING	    3 , 0 , 0
-
 
 
 
@@ -328,6 +325,15 @@ typedef enum SAFE_MODE
     SAFE_MODE_BYPASS = 16,
 
 } SM;
+typedef enum ZONE
+{
+ZONE_OPEATING                 = 0,      // Khu vuc van hanh. Di chuyen theo toc do cai dat
+ZONE_HAZARD_OPERATING         = 1,      // Khu vuc van hanh co rui ro. Toc do toi da (trung binh) cho phep la 0.6 m/s
+ZONE_RESTRICTED               = 2,      // Khu vuc nguy hiem. Toc do toi da cho phep la 0.3 m/s (Su dung tai vị tri vao sạc hoac nhung vi tri co khong gian hep)
+ZONE_LOAD_TRANSFER            = 3,      // Khu vuc chuyen tai. Toc do toi da cho phep la 0.3 m/s (Su dung tai nhung vi tri trao doi tai hoac co tuong tac)
+ZONE_CONFINED                 = 4,      // Khu vuc dac biet, cam nguoi khong co quyen trong khu vuc nay 
+ZONE_FORBIDDEN                = 5,      // Khu vuc cam. Khong cho robot di chuyen vao khu vuc nay
+} Z;
 typedef enum SAFE_FIELD
 {
     SAFE_FIELD_DEFAULT = 15,

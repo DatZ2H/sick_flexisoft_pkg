@@ -17,6 +17,7 @@
 #include <sick_flexisoft_pkg/fx3_saf_protective_field.h>
 #include <sick_flexisoft_pkg/fx3_saf_mode_switch.h>
 #include <sick_flexisoft_pkg/fx3_saf_safety_system.h>
+#include <sick_flexisoft_pkg/fx3_saf_zone.h>
 #include <std_msgs/Float32.h>
 
 
@@ -48,6 +49,7 @@ sick_flexisoft_pkg::fx3_saf_status_states fx3_saf_status_states;
 sick_flexisoft_pkg::fx3_saf_protective_field fx3_saf_protective_field;
 sick_flexisoft_pkg::fx3_saf_mode_switch fx3_saf_mode_switch;
 sick_flexisoft_pkg::fx3_saf_safety_system fx3_saf_safety_system;
+sick_flexisoft_pkg::fx3_saf_zone fx3_saf_zone;
 std_msgs::Float32 m5_out_enc_enable_id;
 // sick_flexisoft_pkg::MuteCameraSafety MuteCameraSafety;
 
@@ -68,7 +70,7 @@ void fx3_saf_protective_fault_function_pub()
 }
 void fx3_saf_stop_states_function_pub()
 {
-    fx3_saf_stop_states.STOP_STATES = Flexisoft->read_bit(FX3_SAF_STOP_STATES);
+    fx3_saf_stop_states.STOP_STATES = Flexisoft->read_bit(FX3_SAF_STOP_PAUSE);
     fx3_saf_stop_states.STOP_OPERATIONAL = Flexisoft->read_bit(FX3_SAF_STOP_OPERATIONAL);
     fx3_saf_stop_states.STOP_MANUAL = Flexisoft->read_bit(FX3_SAF_STOP_MANUAL);
     fx3_saf_stop_states.STOP_PROTECTIVE = Flexisoft->read_bit(FX3_SAF_STOP_PROTECTIVE);
@@ -165,6 +167,32 @@ void fx3_saf_safety_system_function_pub()
     {
         fx3_saf_safety_system.mode_switch.MODE = 4;
     }
+
+        if (Flexisoft->read_bit(FX3_SAF_ZONE_OPEATING))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 0;
+    }
+    else if (Flexisoft->read_bit(FX3_SAF_ZONE_HAZARD))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 1;
+    }
+    else if (Flexisoft->read_bit(FX3_SAF_ZONE_RESTRICTED))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 2;
+    }
+    else if (Flexisoft->read_bit(FX3_SAF_ZONE_LOAD))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 3;
+    }
+        else if (Flexisoft->read_bit(FX3_SAF_ZONE_CONFINED))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 4;
+    }
+        else if (Flexisoft->read_bit(FX3_SAF_ZONE_FORBIDDEN ))
+    {
+        fx3_saf_safety_system.mode_switch.MODE = 5;
+    }
+
 
     if ((Flexisoft->read_bit(FX3_SAF_MS3_DETECTER)) && (Flexisoft->read_bit(FX3_SAF_MS3_WARNER)) && (Flexisoft->read_bit(FX3_SAF_MS3_BRACKER)) && (Flexisoft->read_bit(FX3_SAF_MS3_POWER)))
     {
