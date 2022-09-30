@@ -170,27 +170,27 @@ void fx3_saf_safety_system_function_pub()
 
         if (Flexisoft->read_bit(FX3_SAF_ZONE_OPEATING))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 0;
+        fx3_saf_safety_system.zone.ZONE = 0;
     }
     else if (Flexisoft->read_bit(FX3_SAF_ZONE_HAZARD))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 1;
+        fx3_saf_safety_system.zone.ZONE = 1;
     }
     else if (Flexisoft->read_bit(FX3_SAF_ZONE_RESTRICTED))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 2;
+        fx3_saf_safety_system.zone.ZONE = 2;
     }
     else if (Flexisoft->read_bit(FX3_SAF_ZONE_LOAD))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 3;
+        fx3_saf_safety_system.zone.ZONE = 3;
     }
         else if (Flexisoft->read_bit(FX3_SAF_ZONE_CONFINED))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 4;
+        fx3_saf_safety_system.zone.ZONE = 4;
     }
         else if (Flexisoft->read_bit(FX3_SAF_ZONE_FORBIDDEN ))
     {
-        fx3_saf_safety_system.mode_switch.MODE = 5;
+        fx3_saf_safety_system.zone.ZONE = 5;
     }
 
 
