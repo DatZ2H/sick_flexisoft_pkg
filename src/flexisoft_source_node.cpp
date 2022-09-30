@@ -480,7 +480,7 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_HAZARD, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_RESTRICTED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_LOAD, false);
-        // // Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
+        Flexisoft->flex_write_bit(IPC_SAF_ZONE_CONFINED, false);
         Flexisoft->flex_write_bit(IPC_SAF_ZONE_FORBIDDEN , true);
         while (!time_out)
         {
