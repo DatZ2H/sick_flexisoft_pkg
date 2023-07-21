@@ -200,6 +200,13 @@
 #define FX3_SAF_MODE_LOCK	    1 , 19 , 10
 #define FX3_SAF_MODE_MAN	    1 , 19 , 9
 #define FX3_SAF_MODE_SWITCH	    1 , 19 , 8
+#define FX3_SAF_FIELD_PERSONAL	    1 , 20 , 7
+#define FX3_SAF_FIELD_DETECT	    1 , 20 , 6
+#define FX3_SAF_FIELD_WARN	    1 , 20 , 5
+#define FX3_SAF_FIELD_BRAKER	    1 , 20 , 4
+#define FX3_SAF_FIELD_POWER	    1 , 20 , 3
+#define FX3_SAF_CAM_PROTECTIVE	    1 , 20 , 2
+#define FX3_SAF_CAM_WARNING	    1 , 20 , 1
 #define FX3_SAF_FAULT_EFI	    1 , 20 , 15
 #define FX3_SAF_FAULT_MS3	    1 , 20 , 14
 #define FX3_SAF_FAULT_GENT	    1 , 20 , 13
@@ -290,6 +297,14 @@
 #define IPC_SAF_ZONE_RESTRICTED	    3 , 0 , 2
 #define IPC_SAF_ZONE_HAZARD	    3 , 0 , 1
 #define IPC_SAF_ZONE_OPEATING	    3 , 0 , 0
+#define IPC_SAF_FIELD_PERSONAL	    3 , 2 , 7
+#define IPC_SAF_FIELD_DETECT	    3 , 2 , 6
+#define IPC_SAF_FIELD_WARN	    3 , 2 , 5
+#define IPC_SAF_FIELD_BRAKER	    3 , 2 , 4
+#define IPC_SAF_FIELD_POWER	    3 , 2 , 3
+#define IPC_SAF_CAM_PROTECTIVE	    3 , 2 , 2
+#define IPC_SAF_CAM_WARNING	    3 , 2 , 1
+
 
 
 

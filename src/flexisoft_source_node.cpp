@@ -20,12 +20,11 @@
 #include <sick_flexisoft_pkg/fx3_saf_zone.h>
 #include <std_msgs/Float32.h>
 
-
 #include "detect_obstacle/fields_safety.h"
 
- clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
-//clientSock* Flexisoft = new clientSock("172.20.91.104", 1102);
-//clientSock *Flexisoft = new clientSock("192.168.1.100", 1101, true);
+clientSock *Flexisoft = new clientSock("192.168.1.11", 9100);
+// clientSock* Flexisoft = new clientSock("172.20.91.104", 1102);
+// clientSock *Flexisoft = new clientSock("192.168.1.100", 1101, true);
 ros::Publisher fx3_saf_protective_fault_pub;
 ros::Publisher fx3_saf_stop_states_pub;
 ros::Publisher fx3_saf_stop_operational_pub;
@@ -193,7 +192,6 @@ void fx3_saf_safety_system_function_pub()
         fx3_saf_safety_system.zone.ZONE = 5;
     }
 
-
     if ((Flexisoft->read_bit(FX3_SAF_MS3_DETECTER)) && (Flexisoft->read_bit(FX3_SAF_MS3_WARNER)) && (Flexisoft->read_bit(FX3_SAF_MS3_BRACKER)) && (Flexisoft->read_bit(FX3_SAF_MS3_POWER)))
     {
         fx3_saf_safety_system.laser_field.FIELD = 0;
@@ -256,13 +254,34 @@ void m5_out_enc_enable_id_function_pub()
     m5_out_enc_enable_id_pub.publish(m5_out_enc_enable_id);
 }
 
-void depth_camera_fields_safety_CallBack(const detect_obstacle::fields_safety::ConstPtr& msg)
+void depth_camera_fields_safety_CallBack(const detect_obstacle::fields_safety::ConstPtr &msg)
 {
     fields_safety = *msg;
     if (msg->system_good == true)
     {
         if (msg->enable == true)
         {
+            // if (msg->fields[0] == true)
+            // {
+            //     fx3_saf_safety_system.camera_field.FIELD = 2;
+            //     Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
+            // }
+            // else if (msg->fields[1] == true)
+            // {
+            //     fx3_saf_safety_system.camera_field.FIELD = 3;
+            //     Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
+            // }
+            // else if (msg->fields[2] == true)
+            // {
+            //     fx3_saf_safety_system.camera_field.FIELD = 4;
+            //     Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, true);
+            // }
+            // else
+            // {
+            //     fx3_saf_safety_system.camera_field.FIELD = 0;
+            //     Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
+            // }
+
             if (msg->fields[0] == true)
             {
                 fx3_saf_safety_system.camera_field.FIELD = 2;
@@ -271,16 +290,6 @@ void depth_camera_fields_safety_CallBack(const detect_obstacle::fields_safety::C
             else if (msg->fields[1] == true)
             {
                 fx3_saf_safety_system.camera_field.FIELD = 3;
-                Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
-            }
-            else if (msg->fields[2] == true)
-            {
-                fx3_saf_safety_system.camera_field.FIELD = 4;
-                Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, true);
-            }
-            else
-            {
-                fx3_saf_safety_system.camera_field.FIELD = 0;
                 Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
             }
         }
@@ -302,8 +311,8 @@ void depth_camera_field_safety_fake_muted()
     Flexisoft->write_bit(IPC_STOP_OBSTACLE_RELEASE, false);
 }
 
-bool ServiceCbFlexSetStopOperationalSrv(sick_flexisoft_pkg::FlexSetStopOperationalSrv::Request& req,
-    sick_flexisoft_pkg::FlexSetStopOperationalSrv::Response& res)
+bool ServiceCbFlexSetStopOperationalSrv(sick_flexisoft_pkg::FlexSetStopOperationalSrv::Request &req,
+                                        sick_flexisoft_pkg::FlexSetStopOperationalSrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -328,8 +337,8 @@ bool ServiceCbFlexSetStopOperationalSrv(sick_flexisoft_pkg::FlexSetStopOperation
     res.success = false;
     return false;
 }
-bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request& req,
-    sick_flexisoft_pkg::FlexSetZoneSrv::Response& res)
+bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request &req,
+                             sick_flexisoft_pkg::FlexSetZoneSrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -507,8 +516,8 @@ bool ServiceCbFlexSetZoneSrv(sick_flexisoft_pkg::FlexSetZoneSrv::Request& req,
         break;
     }
 }
-bool ServiceCbFlexSetMuteReleaseSrv(sick_flexisoft_pkg::FlexSetMuteReleaseSrv::Request& req,
-    sick_flexisoft_pkg::FlexSetMuteReleaseSrv::Response& res)
+bool ServiceCbFlexSetMuteReleaseSrv(sick_flexisoft_pkg::FlexSetMuteReleaseSrv::Request &req,
+                                    sick_flexisoft_pkg::FlexSetMuteReleaseSrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -534,8 +543,8 @@ bool ServiceCbFlexSetMuteReleaseSrv(sick_flexisoft_pkg::FlexSetMuteReleaseSrv::R
     res.success = false;
     return false;
 }
-bool ServiceCbMuteCameraSafetySrv(sick_flexisoft_pkg::MuteCameraSafetySrv::Request& req,
-    sick_flexisoft_pkg::MuteCameraSafetySrv::Response& res)
+bool ServiceCbMuteCameraSafetySrv(sick_flexisoft_pkg::MuteCameraSafetySrv::Request &req,
+                                  sick_flexisoft_pkg::MuteCameraSafetySrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -571,8 +580,8 @@ bool ServiceCbMuteCameraSafetySrv(sick_flexisoft_pkg::MuteCameraSafetySrv::Reque
 
     return false;
 }
-bool ServiceCbFlexSetPayloadSrv(sick_flexisoft_pkg::FlexSetPayloadSrv::Request& req,
-    sick_flexisoft_pkg::FlexSetPayloadSrv::Response& res)
+bool ServiceCbFlexSetPayloadSrv(sick_flexisoft_pkg::FlexSetPayloadSrv::Request &req,
+                                sick_flexisoft_pkg::FlexSetPayloadSrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -597,8 +606,8 @@ bool ServiceCbFlexSetPayloadSrv(sick_flexisoft_pkg::FlexSetPayloadSrv::Request& 
     res.success = false;
     return false;
 }
-bool ServiceCbFlexSetMappingSrv(sick_flexisoft_pkg::FlexSetMappingSrv::Request& req,
-    sick_flexisoft_pkg::FlexSetMappingSrv::Response& res)
+bool ServiceCbFlexSetMappingSrv(sick_flexisoft_pkg::FlexSetMappingSrv::Request &req,
+                                sick_flexisoft_pkg::FlexSetMappingSrv::Response &res)
 {
     double secs;
     bool time_out = false;
@@ -624,7 +633,7 @@ bool ServiceCbFlexSetMappingSrv(sick_flexisoft_pkg::FlexSetMappingSrv::Request& 
     return false;
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 
     ROS_INFO("FLEXISOFT CONNECTING....");
@@ -680,8 +689,6 @@ int main(int argc, char** argv)
             fx3_saf_mode_switch_function_pub();
             fx3_saf_safety_system_function_pub();
             m5_out_enc_enable_id_function_pub();
-
-
 
             ros::spinOnce();
             loop_rate.sleep();
